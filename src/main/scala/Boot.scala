@@ -27,7 +27,10 @@ object Boot extends App {
   implicit val daoEvent: DaoEvent = new DaoEvent()
 
   val serviceConsumer = new ServiceConsumer()
-  serviceConsumer.consume.onComplete(_ => println("done"))
+  serviceConsumer.consume.onComplete { _ =>
+    system.terminate()
+    println("done")
+  }
 
 
 
